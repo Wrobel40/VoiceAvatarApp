@@ -19,8 +19,12 @@ jobs:
         run: |
           xcodebuild build -project VoiceAvatarApp.xcodeproj -scheme VoiceAvatarApp -destination 'platform=iOS Simulator,name=iPhone 15' CODE_SIGNING_ALLOWED=NO
 
+      - name: Find build products
+        run: |
+          find ~/Library/Developer/Xcode/DerivedData -name "*.app" -type d 2>/dev/null | head -5
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: VoiceAvatarApp
-          path: build/
+          path: ~/Library/Developer/Xcode/DerivedData/VoiceAvatarApp-*/Build/Products/Debug-iphonesimulator/VoiceAvatarApp.app
